@@ -20,7 +20,7 @@ class AdminCtrl
         if(Auth::check())
         {
 
-            if(Auth::user()->permission != 1)
+            if(Auth::user()->permissions != 1)
             {
                 return redirect('/');
 

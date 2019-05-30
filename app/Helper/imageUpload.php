@@ -4,13 +4,13 @@ use File;
 use Image;
 class imageUpload
 {
-    static function singleUpload($name,$directory,$file)
+    static function singleUpload($name, $directory, $file)
     {
         $rand = $name;
-        $dir = 'images/'.$directory.'/'.$rand;
-        $dirLarge = $dir.'/large';
+        $dir = 'images/' . $directory . '/' . $rand;
+        $dirLarge = $dir . '/large';
 
-        if(!empty($file)) {
+        if (!empty($file)) {
             if (!File::exists($dir)) {
                 File::makeDirectory($dir, 0755, true);
             }
@@ -19,42 +19,42 @@ class imageUpload
                 File::makeDirectory($dirLarge, 0755, true);
             }
 
-            $filename = rand(1,90000).'.'.$file->getClientOriginalExtension();
-            $path = public_path($dir.'/'.$filename);
-            $path2 = public_path($dirLarge.'/'.$filename);
+            $filename = rand(1, 90000) . '.' . $file->getClientOriginalExtension();
+            $path = public_path($dir . '/' . $filename);
+            $path2 = public_path($dirLarge . '/' . $filename);
 
             Image::make($file->getRealPath())->save($path2);
-            Image::make($file->getRealPath())->resize(250,250)->save($path);
-            return $dir."/".$filename;
-        }
-        else{
+            Image::make($file->getRealPath())->resize(250, 250)->save($path);
+            return $dir . "/" . $filename;
+        } else {
             return "";
         }
     }
-    static function singleUploadUpdate($name,$directory,$file,$data,$field,$smallImage,$bigImage,$extension,$nSubData2)
+
+    static function singleUploadUpdate($name, $directory, $file, $data, $field)
     {
         $rand = $name;
-        $dir = 'images/'.$directory.'/'.$rand;
-        $dirLarge = $dir.'/large';
-        $nFile = $file;
+        $dir = 'images/' . $directory . '/' . $rand;
+        $dirLarge = $dir . '/large';
 
-       // File::deleteDirectory($smallImage);
-      //  File::deleteDirectory($bigImage);
-        $filename = $nSubData2.'.'.$extension;
-        $nPath = public_path('images\yazar' .'\\' . $nSubData2. '\\' . $file->getClientOriginalName().'.'.$extension);
-       // $nPath2 = public_path('images\yazar\'.$nSubData2.'\large');
-        // File::delete('public/'.$data[0]['field']);
+        if (!empty($file)) {
+            if (!File::exists($dir)) {
+                File::makeDirectory($dir, 0755, true);
+            }
+            if (!File::exists($dirLarge)) {
+                File::makeDirectory($dirLarge, 0755, true);
+            }
 
+            File::delete('public/' . $data[0]['field']);
+            $filename = rand(1, 90000) . '.' . $file->getClientOriginalExtension();
+            $path = public_path($dir . '/' . $filename);
+            $path2 = public_path($dirLarge . '/' . $filename);
 
-
-        $path = public_path($dir.'/'.$filename);
-        $path2 = public_path($dirLarge.'/'.$filename);
-
-        Image::make($nFile)->save($nPath);
-      //  Image::make($nFile)->resize(250,250)->save($nPath2);
-
-
-        return $dir."/".$filename;
-
+            Image::make($file->getRealPath())->save($path2);
+            Image::make($file->getRealPath())->resize(250, 250)->save($path);
+            return $dir . "/" . $filename;
+        } else {
+            return $data[0][$field];
+        }
     }
 }

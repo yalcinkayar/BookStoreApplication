@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Luxury Watches A Ecommerce Category Flat Bootstrap Resposive Website Template | Home :: w3layouts</title>
+    <title>Kitap Diyarı | Home :: w3layouts</title>
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
     <!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
     <script src="{{asset('js/jquery-1.11.0.min.js')}}"></script>

@@ -62,34 +62,17 @@ class indexController extends Controller
         if($c!=0)
         {
             $data = Yazarlar::where('id','=',$id)->get();
-           // print_r($request->file('image')->getRealPath());
-            $url = $data[0]['image'];
-            $subData = explode("/",$url);
-            $nSubData2 = $subData[2];
-            $nSubData3 = $subData[3];
-
-            //print_r($nSubData3);
-            $smallImage = 'large'.$nSubData3;
-            $bigImage = 'public/'.$data[0]['field'];
-
-           $url = public_path(substr($url,0,-(strlen($nSubData3)+1)));
-          // print_r('public\images\yazar' .'\\'. $nSubData2);
-
-          // $url = substr($url,0,-(strlen($nSubData3)+1));
-            $extension = substr($data[0]['image'],-3,3);
-
-           $all = $request->except('_token');
-
+            $all = $request->except('_token');
             $all['selflink'] = mHelper::permalink($all['name']);
-            $all['image'] = imageUpload::singleUploadUpdate(rand(1,900),"yazar",$request->file('image')->getRealPath(),$data,"image",$smallImage,$bigImage,$extension,$nSubData2);
-
+            $all['image'] = imageUpload::singleUploadUpdate(rand(1,900),"yazar",$request->file('image'),$data,"image");
             $update = Yazarlar::where('id','=',$id)->update($all);
             if($update)
             {
                 return redirect()->back()->with('status','Yazar Başarı ile düzenlendi');
             }
-            else {
-                return redirect()->back()->with('status', 'Yazar Düzenlenemedi');
+            else
+            {
+                return redirect()->back()->with('status','Yazar Düzenlenemedi');
             }
         }
         else

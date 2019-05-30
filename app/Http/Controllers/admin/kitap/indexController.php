@@ -32,8 +32,7 @@ class indexController extends Controller
     {
         $all = $request->except('_token');
         $all['selflink'] = mHelper::permalink($all['name']);
-
-        $all['image'] = imageUpload::singleUpload(rand(1,9000),"kitap",$request->file('image'));
+        $all['image'] = imageUpload::singleUpload(rand(1,19000),"kitap",$request->file('image'));
 
         $insert = Kitaplar::create($all);
         if($insert)
